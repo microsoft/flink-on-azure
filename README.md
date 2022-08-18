@@ -18,7 +18,9 @@ Azure:
 * [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 * [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 
-## Build your Flink Job on Local
+## Build Flink Job
+
+
 
 ## Create and Publish the Docker image to Azure Container Registry
 
