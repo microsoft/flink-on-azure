@@ -103,7 +103,7 @@ kubectl create secret docker-registry $(registry)-secret \
     --namespace=$(namespace)
 ```
 
-deploy Flink job with Flink CLI:
+deploy Flink job with native k8s application mode through Flink CLI:
 
 ```
 tar -zxvf flink-1.15.0-bin-scala_2.12.tgz
