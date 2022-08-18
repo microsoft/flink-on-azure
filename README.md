@@ -20,7 +20,13 @@ Azure:
 
 ## Build Flink Job
 
+Build Flink job with Maven. 
 
+e.g. on flink-streaming-example/
+
+```
+mvn clean package
+```
 
 ## Create and Publish the Docker image to Azure Container Registry
 
