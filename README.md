@@ -11,6 +11,7 @@ Outline the examples in the repository.
 | Example | Description | Pipeline Status |
 |-|-|-|
 | [Flink streaming examples](flink-streaming-example) |  Examples for Flink Streaming, including custom source & sink |  |
+| [Flink batch examples](flink-batch-example) |  Examples for Flink Batch, including custom sink (source is developing and update soon) |  |
 
 ## Prerequisites
 
