@@ -34,12 +34,12 @@ Flink has 3 types of custom streaming source:
 
 * Implements SourceFunction with single parallelism.
 * Implements ParallelSourceFunction with multi parallelism.
-* Implements RichParallelSourceFunction with multi parallelism, with open() to initialize resource, close() to dispose resource.
+* Extends RichParallelSourceFunction with multi parallelism, with open() to initialize resource, close() to dispose resource.
 
 Flink has 2 types of custom streaming sink:
 
 * Implements SinkFunction with single parallelism.
-* Implements RichSinkFunction with single parallelism, with open() to initialize resource, close() to dispose resource.
+* Extends RichSinkFunction with single parallelism, with open() to initialize resource, close() to dispose resource.
 
 ### Flink Batch Stream Alignment
 
