@@ -1,14 +1,23 @@
 # Flink on Native K8S
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+Kubernetes is a popular container-orchestration system for automating computer application deployment, scaling, and management. Flink’s native Kubernetes integration allows you to directly deploy Flink on a running Kubernetes cluster. Moreover, Flink is able to dynamically allocate and de-allocate TaskManagers depending on the required resources because it can directly talk to Kubernetes.
 
-As the maintainer of this project, please make a few updates:
+This tutorial will show how to deploy Apache Flink natively on Azure Kubernetes.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Prerequisites
+
+Basic:
+
+* [Git](https://www.git-scm.com/downloads)
+* [Java Development Kit (JDK) 1.8](https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html)
+* [Apache Maven](http://maven.apache.org/download.cgi) and [install](http://maven.apache.org/install.html) a Maven binary archive
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+
+Azure:
+
+* [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
+* [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
+
 
 ## Contributing
 
