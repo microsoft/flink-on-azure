@@ -12,6 +12,7 @@ Outline the examples in the repository.
 |-|-|-|
 | [Flink streaming examples](flink-streaming-example) |  Examples for Flink Streaming, including custom source & sink |  |
 | [Flink batch examples](flink-batch-example) |  Examples for Flink Batch, including custom sink (source is developing and update soon) |  |
+| [Flink CDC SQL Server examples](flink-cdc-sql-server-example) |  Examples for Flink Batch, including custom sink (source is developing and update soon) |  |
 
 ## Prerequisites
 
