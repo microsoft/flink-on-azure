@@ -18,6 +18,24 @@ Azure:
 * [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 * [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 
+## Build your Flink Job on Local
+
+## Create and Publish the Docker image to Azure Container Registry
+
+The Flink community provides a base Docker image which can be used to bundle the user code:
+
+```
+ARG java_version=java8
+ARG scala_version=scala_2.12
+ARG flink_version=1.15.0
+FROM flink:$flink_version-$scala_version-$java_version
+
+ARG artifact_id=flink-example
+ARG version=1.0-SNAPSHOT
+
+RUN mkdir -p $FLINK_HOME/usrlib
+COPY target/$artifact_id-$version.jar $FLINK_HOME/usrlib/$artifact_id-$version.jar
+```
 
 ## Contributing
 
