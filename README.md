@@ -118,6 +118,15 @@ cd flink-1.15.0/
   local:///opt/flink/usrlib/$artifact_id-$version.jar
 ```
 
+You could access Flink Web UI through
+
+```
+kubectl port-forward svc/$artifact_id-rest 8081 -n flink
+```
+
+and access http://localhost:8081
+
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
