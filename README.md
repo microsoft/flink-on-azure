@@ -45,6 +45,17 @@ RUN mkdir -p $FLINK_HOME/usrlib
 COPY target/$artifact_id-$version.jar $FLINK_HOME/usrlib/$artifact_id-$version.jar
 ```
 
+And you can build image and publish it into Azure Container Registry
+
+```
+az acr login --name $(registry)
+
+docker build --no-cache -t $(registry).azurecr.io/$(artifact_id):$(version) .
+docker push $(registry).azurecr.io/$(artifact_id):$(version)
+```
+
+## Deploy Flink Job on Azure Kubernetes 
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
