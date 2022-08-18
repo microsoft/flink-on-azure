@@ -4,6 +4,14 @@ Kubernetes is a popular container-orchestration system for automating computer a
 
 This tutorial will show how to deploy Apache Flink natively on Azure Kubernetes.
 
+## Examples
+
+Outline the examples in the repository.
+
+| Example | Description | Pipeline Status |
+|-|-|-|
+| [Flink streaming examples](flink-streaming-example) |  Examples for Flink Streaming, including custom source & sink |  |
+
 ## Prerequisites
 
 Basic:
@@ -21,32 +29,6 @@ Azure:
 Flink:
 
 * [Flink](https://downloads.apache.org/flink)
-
-## Build Flink Job
-
-```
-mvn clean package
-```
-
-### Custom Flink Streaming Source & Sink
-
-Flink has 3 types of custom streaming source:
-
-* Implements SourceFunction with single parallelism.
-* Implements ParallelSourceFunction with multi parallelism.
-* Extends RichParallelSourceFunction with multi parallelism, with open() to initialize resource, close() to dispose resource.
-
-Flink has 2 types of custom streaming sink:
-
-* Implements SinkFunction with single parallelism.
-* Extends RichSinkFunction with single parallelism, with open() to initialize resource, close() to dispose resource.
-
-### Flink Batch Stream Alignment
-
-Flink has raised new kind of Source & Sink API for Batch Stream Alignment
-
-* [FLIP-27: Refactor Source Interface](https://cwiki.apache.org/confluence/display/FLINK/FLIP-27%3A+Refactor+Source+Interface)
-* [FLIP-143: Unified Sink API](https://cwiki.apache.org/confluence/display/FLINK/FLIP-143%3A+Unified+Sink+API)
 
 
 ## Create and Publish the Docker image to Azure Container Registry
