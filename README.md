@@ -18,6 +18,10 @@ Azure:
 * [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 * [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 
+Flink:
+
+* [Flink](https://downloads.apache.org/flink)
+
 ## Build Flink Job
 
 ```
@@ -51,6 +55,47 @@ docker push $(registry).azurecr.io/$(artifact_id):$(version)
 ```
 
 ## Deploy Flink Job on Azure Kubernetes 
+
+get kubeconfig use Azure CLI:
+
+```
+az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER
+```
+
+create role & rolebinding to your default service account
+
+```
+
+kubectl create role flink-role --verb=get --verb=list --verb=watch --verb=create --verb=update --verb=patch --verb=delete  --resource=pods,services,deployments,namespaces --namespace=$(namespace)
+
+kubectl create rolebinding flink-rolebinding --role=flink-role --serviceaccount=$(namespace):default --namespace=$(namespace)
+
+```
+
+create secret for accessing Azure Container Registry:
+
+```
+kubectl create secret docker-registry $(registry)-secret \
+    --docker-server=$(registry).azurecr.io \
+    --docker-username=$(registry_password) \
+    --docker-password=$(registry_password) \
+    --namespace=$(namespace)
+```
+
+deploy Flink job with Flink CLI:
+
+```
+tar -zxvf flink-1.15.0-bin-scala_2.12.tgz
+cd flink-1.15.0/
+/bin/flink run-application \
+  --target kubernetes-application \
+  -Dkubernetes.namespace=$(namespace) \
+  -Dkubernetes.cluster-id=$(artifact_id) \
+  -Dkubernetes.container.image=$(registry).azurecr.io/$(artifact_id) \
+  -Dkubernetes.container.image.pull-secrets=$(registry)-secret \
+  -Dkubernetes.container.image.pull-policy=Always \
+  local:///opt/flink/usrlib/$artifact_id-$version.jar
+```
 
 ## Contributing
 
