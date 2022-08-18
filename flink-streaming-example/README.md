@@ -1,12 +1,17 @@
 # Flink Streaming Example
 
+## Prerequisites
+
+* [Java Development Kit (JDK) 1.8](https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html)
+* [Apache Maven](http://maven.apache.org/download.cgi) and [install](http://maven.apache.org/install.html) a Maven binary archive
+
 ## Build Flink Job
 
 ```
 mvn clean package
 ```
 
-### Custom Flink Streaming Source & Sink
+## Custom Flink Streaming Source & Sink
 
 Flink has 3 types of custom streaming source:
 
@@ -19,7 +24,7 @@ Flink has 2 types of custom streaming sink:
 * Implements SinkFunction with single parallelism.
 * Implements RichSinkFunction with single parallelism, with open() to initialize resource, close() to dispose resource.
 
-### Flink Batch Stream Alignment
+## Flink Batch Stream Alignment
 
 Flink has raised new kind of Source & Sink API for Batch Stream Alignment
 
