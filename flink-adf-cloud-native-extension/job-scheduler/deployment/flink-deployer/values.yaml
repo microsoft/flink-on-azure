@@ -1,0 +1,65 @@
+image:
+  repository: mcr.microsoft.com/azure-cli
+  pullPolicy: Always
+  tag: latest
+
+nameOverride: "flink-deployer"
+fullnameOverride: "flink-deployer"
+
+aad:
+  identityName: "$aad-pod-identity"
+
+env:
+  environment: $environment
+  registryName: $registry_name
+  subscriptionId: $subscription_id
+  resourceGroup: $resource_group
+  cluster: $aks_name
+  adlsGen2AccountName: $adls_gen2_storage_account_name
+  adlsGen2AccountKey: $adls_gen2_storage_account_key
+  aadIdentityName: $aad-pod-identity
+  artifactId: $artifact_id
+  tag: $tag 
+
+command:
+- /bin/sh
+- -c
+- |
+  az login --identity
+  az account set --subscription $SUBSCRIPTION_ID
+  az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER
+  az aks install-cli
+  kubectl version --client
+  kubelogin --version
+  export KUBECONFIG=/root/.kube/config
+  export PATH=$PATH:/usr/local/sbin
+  kubelogin convert-kubeconfig -l msi 
+  cat /root/.kube/config
+  kubectl get pod
+  kubectl get namespace
+  
+  wget https://downloads.apache.org/flink/flink-1.15.0/flink-1.15.0-bin-scala_2.12.tgz
+  tar -zxvf flink-1.15.0.tar.gz
+  cd flink-1.15.0/
+
+  pod_count=`kubectl get pod -n flink | grep $ARTIFACT_ID | wc -l`
+  echo ${pod_count}
+  if [ ${pod_count} == 0 ] ; then
+    echo "Skip";
+  else
+    echo "Stop Flink Job";
+    kubectl delete deployment $ARTIFACT_ID -n flink
+  fi
+
+  echo "Deploy Flink Job on Native Azure Kubernetes Application Mode";
+  ./bin/flink run-application \
+  --target kubernetes-application \
+  -Dkubernetes.namespace=flink \
+  -Dkubernetes.cluster-id=$ARTIFACT_ID \
+  -Dkubernetes.container.image=$REGISTRY_NAME.azurecr.io/flink/$ARTIFACT_ID:$TAG \
+  -Dkubernetes.container.image.pull-policy=Always \
+  -Dkubernetes.jobmanager.labels="aadpodidbinding: $aad-pod-identity" \
+  -Dkubernetes.taskmanager.labels="aadpodidbinding: $aad-pod-identity" \
+  local:///opt/flink/usrlib/$ARTIFACT_ID-1.0-SNAPSHOT.jar  
+
+restartPolicy: Never
