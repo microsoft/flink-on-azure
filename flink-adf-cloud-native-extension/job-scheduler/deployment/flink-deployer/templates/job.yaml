@@ -1,0 +1,45 @@
+{{- $fullName := include "flink-deployer.fullname" . -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "flink-deployer.fullname" . }}
+  labels:
+    {{- include "flink-deployer.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "flink-deployer.selectorLabels" . | nindent 8 }}
+        aadpodidbinding: {{ .Values.aad.identityName }}
+    spec:
+      restartPolicy: "{{ .Values.restartPolicy }}"
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: ENVIRONMENT
+            value: "{{ .Values.env.environment }}"
+          - name: SUBSCRIPTION_ID
+            value: "{{ .Values.env.subscriptionId }}"
+          - name: RESOURCE_GROUP
+            value: "{{ .Values.env.resourceGroup }}"
+          - name: CLUSTER
+            value: "{{ .Values.env.cluster }}"
+          - name: ADLS_GEN2_ACCOUNT_NAME
+            value: "{{ .Values.env.adlsGen2AccountName }}"
+          - name: ADLS_GEN2_ACCOUNT_KEY
+            value: "{{ .Values.env.adlsGen2AccountKey }}"
+          - name: AAD_IDENTITY_NAME
+            value: "{{ .Values.env.aadIdentityName }}"
+          - name: REGISTRY_NAME
+            value: "{{ .Values.env.registryName }}"
+          - name: ARTIFACT_ID
+            value: "{{ .Values.env.artifactId }}"
+          - name: TAG
+            value: "{{ .Values.env.tag }}" 
+          command:
+          {{- toYaml .Values.command | nindent 10 }}
+
+      
+
