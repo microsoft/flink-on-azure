@@ -13,6 +13,7 @@ Outline the examples in the repository.
 | [Flink streaming examples](flink-streaming-example) |  Examples for Flink Streaming, including custom source & sink |  |
 | [Flink batch examples](flink-batch-example) |  Examples for Flink Batch, including custom sink (source is developing and update soon) |  |
 | [Flink CDC SQL Server examples](flink-cdc-sql-server-example) |  Examples for Flink CDC SQL Server Connector |  |
+| [Flink Azure Data Factory Cloud Native Extension](flink-adf-cloud-native-extension) |  Flink Azure Data Factory Cloud Native Extension |  |
 
 ## Prerequisites
 
@@ -27,6 +28,8 @@ Azure:
 
 * [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 * [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
+* [Azure SQL Server](https://azure.microsoft.com/en-us/services/sql-database/)
+* [Azure Data Factory](https://azure.microsoft.com/en-us/services/data-factory/)
 
 Flink:
 
