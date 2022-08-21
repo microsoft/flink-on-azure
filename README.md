@@ -32,7 +32,7 @@ Azure:
 * [Azure Kubernetes](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 * [Azure SQL Server](https://azure.microsoft.com/en-us/services/sql-database/)
 * [Azure Data Factory](https://azure.microsoft.com/en-us/services/data-factory/)
-* [Azure Data Lake Storage Gen2](https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction)
+* [Azure Data Lake Storage Gen2](https://azure.microsoft.com/en-us/services/storage/data-lake-storage/#overview)
 
 Flink:
 
