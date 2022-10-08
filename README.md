@@ -34,11 +34,16 @@ Azure:
 * [Azure SQL Server](https://azure.microsoft.com/en-us/services/sql-database/)
 * [Azure Data Factory](https://azure.microsoft.com/en-us/services/data-factory/)
 * [Azure Data Lake Storage Gen2](https://azure.microsoft.com/en-us/services/storage/data-lake-storage/#overview)
+* [Azure Blob Storage NFS Support](https://learn.microsoft.com/en-us/azure/storage/blobs/network-file-system-protocol-support)
 
 Flink:
 
 * [Flink](https://downloads.apache.org/flink)
 
+Deep Learning:
+
+* [Tensorflow](https://www.tensorflow.org/)
+* [Kubeflow](https://www.kubeflow.org/)
 
 ## Contributing
 
