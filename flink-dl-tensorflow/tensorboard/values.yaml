@@ -17,7 +17,7 @@ deployment:
   volumes:
     - name: azureblob-fuse
       persistentVolumeClaim:
-        claimName: nfs-pvc
+        claimName: azureblob-fuse-pvc
 
 service:
   type: ClusterIP

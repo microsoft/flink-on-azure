@@ -15,4 +15,4 @@ worker:
   volumes:
     - name: azureblob-fuse
       persistentVolumeClaim:
-        claimName: nfs-pvc
+        claimName: azureblob-fuse-pvc

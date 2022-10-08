@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azureblob-fuse-pv
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  storageClassName: azureblob-fuse-premium
+  mountOptions:
+    - -o allow_other
+    - --file-cache-timeout-in-seconds=120
+  csi:
+    driver: blob.csi.azure.com
+    readOnly: false
+    # make sure this volumeid is unique in the cluster
+    # `#` is not allowed in self defined volumeHandle
+    volumeHandle: tensorflow
+    volumeAttributes:
+      containerName: tensorflow
+    nodeStageSecretRef:
+      name: azureblob-fuse-secret
+      namespace: kubeflow
+    # kubectl create secret generic azureblob-fuse-secret --from-literal azurestorageaccountname={ACCOUNT_NAME} --from-literal azurestorageaccountkey={ACCOUNT_KEY} --type=Opaque --namespace=kubeflow
