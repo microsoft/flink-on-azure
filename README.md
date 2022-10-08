@@ -35,6 +35,7 @@ Azure:
 * [Azure Data Factory](https://azure.microsoft.com/en-us/services/data-factory/)
 * [Azure Data Lake Storage Gen2](https://azure.microsoft.com/en-us/services/storage/data-lake-storage/#overview)
 * [Azure Blob Storage NFS Support](https://learn.microsoft.com/en-us/azure/storage/blobs/network-file-system-protocol-support)
+* [Azure Storage Fuse](https://github.com/Azure/azure-storage-fuse)
 
 Flink:
 

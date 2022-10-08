@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tensorflow-serving.fullname" . }}
+  labels:
+    {{- include "tensorflow-serving.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  {{- range .Values.ports }}
+  - name: {{ .name }}
+    port: {{ .containerPort }}
+    targetPort: {{ .containerPort }}
+  {{- end }}
+  selector:
+    {{- include "tensorflow-serving.selectorLabels" . | nindent 4 }}

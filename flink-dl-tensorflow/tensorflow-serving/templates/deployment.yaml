@@ -1,0 +1,49 @@
+{{- $fullName := include "tensorflow-serving.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tensorflow-serving.fullname" . }}
+  labels:
+    {{- include "tensorflow-serving.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      {{- include "tensorflow-serving.selectorLabels" . | nindent 6 }}
+      aadpodidbinding: {{ .Values.aad.identityName }}
+  template:
+    metadata:
+      labels:
+        {{- include "tensorflow-serving.selectorLabels" . | nindent 8 }}
+        aadpodidbinding: {{ .Values.aad.identityName }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          {{- toYaml .Values.deployment.command | nindent 10 }}
+          args:
+          {{- toYaml .Values.deployment.args | nindent 10 }}
+          ports:
+          {{- range .Values.ports }}
+          - name: {{ .name }}
+            containerPort: {{ .containerPort }}
+          {{- end }}
+          resources:
+          {{- toYaml .Values.deployment.resources | nindent 12 }}
+          volumeMounts:
+          {{- range .Values.deployment.volumeMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              {{- if .subPath }}
+              subPath: {{ .subPath }}
+              {{- end }}
+          {{- end }}
+      volumes:
+      {{- range .Values.deployment.volumes }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaim.claimName }}
+      {{- end }}
+          

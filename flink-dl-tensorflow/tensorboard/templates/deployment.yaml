@@ -1,0 +1,41 @@
+{{- $fullName := include "tensorboard.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tensorboard.fullname" . }}
+  labels:
+    {{- include "tensorboard.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "tensorboard.selectorLabels" . | nindent 6 }}
+      aadpodidbinding: {{ .Values.aad.identityName }}
+  template:
+    metadata:
+      labels:
+        {{- include "tensorboard.selectorLabels" . | nindent 8 }}
+        aadpodidbinding: {{ .Values.aad.identityName }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          {{- toYaml .Values.deployment.command | nindent 10 }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          volumeMounts:
+                {{- range .Values.deployment.volumeMounts }}
+                - name: {{ .name }}
+                  mountPath: {{ .mountPath }}
+                  {{- if .subPath }}
+                  subPath: {{ .subPath }}
+                  {{- end }}
+                {{- end }}
+      volumes:
+      {{- range .Values.deployment.volumes }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaim.claimName }}
+      {{- end }}
+          

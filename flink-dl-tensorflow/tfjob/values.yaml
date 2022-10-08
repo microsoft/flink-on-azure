@@ -1,0 +1,18 @@
+image:
+  repository: <registry_name>.registry.azurecr.io/mnist
+  tag: <tag>
+  pullPolicy: Always
+
+aad:
+  identityName: "aks-identity-name"
+
+worker:
+  replicas: 1
+  restartPolicy: OnFailure
+  volumeMounts:
+    - mountPath: /mnt/tf
+      name: azureblob-fuse
+  volumes:
+    - name: azureblob-fuse
+      persistentVolumeClaim:
+        claimName: nfs-pvc
