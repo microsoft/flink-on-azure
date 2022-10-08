@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.microsoft.flink</groupId>
-    <artifactId>flink-batch-example</artifactId>
+    <artifactId>flink-stream-batch-unified-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -21,28 +21,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-statebackend-rocksdb</artifactId>
-            <version>${flink.version}</version>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-data-tables</artifactId>
+            <version>12.3.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-java</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-common</artifactId>
+            <artifactId>flink-connector-base</artifactId>
             <version>${flink.version}</version>
         </dependency>
         <dependency>
@@ -52,13 +44,34 @@
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-test-utils</artifactId>
+            <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-json</artifactId>
+            <artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-common</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-statebackend-rocksdb</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 
@@ -82,7 +95,7 @@
                     </filters>
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>com.microsoft.flink.FlinkBatchExample</mainClass>
+                            <mainClass>com.microsoft.flink.FlinkStreamBatchUnifiedExample</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>
