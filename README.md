@@ -11,7 +11,7 @@ Outline the examples in the repository.
 | Example | Description | Pipeline Status |
 |-|-|-|
 | [Flink Streaming Examples](flink-streaming-example) |  Examples for Flink Streaming, including custom source & sink |  |
-| [Flink Batch Examples](flink-batch-example) |  Examples for Flink Batch, including custom sink (source is developing and update soon) |  |
+| [Flink Stream Batch Unified Examples](flink-stream-batch-unified-example) |  Examples for Flink Stream Batch Unified Connector |  |
 | [Flink History Server](flink-history-server) |  Examples for Flink History Server |  |
 | [Flink CDC SQL Server Examples](flink-cdc-sql-server-example) |  Examples for Flink CDC SQL Server Connector |  |
 | [Flink on Native Azure Kubernetes](flink-on-native-azure-kubernetes) |  Examples for Flink Job on Native Azure Kubernetes |  |
