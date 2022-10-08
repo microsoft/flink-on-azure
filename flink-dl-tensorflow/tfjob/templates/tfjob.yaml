@@ -1,0 +1,40 @@
+{{- $fullName := include "tfjob.fullname" . -}}
+apiVersion: kubeflow.org/v1
+kind: TFJob
+metadata:
+  name: {{ include "tfjob.fullname" . }}
+spec:
+   tfReplicaSpecs:
+      Worker:
+        replicas: {{ .Values.worker.replicas }}
+        restartPolicy: {{ .Values.worker.restartPolicy }}
+        template:
+          metadata:
+            labels:
+              aadpodidbinding: {{ .Values.aad.identityName }}
+          spec:
+            containers:
+              - name: {{ .Chart.Name }}
+                image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+                imagePullPolicy: {{ .Values.image.pullPolicy }}
+                command:
+                  - "python"
+                  - "/app/main.py"
+                volumeMounts:
+                {{- range .Values.worker.volumeMounts }}
+                - name: {{ .name }}
+                  mountPath: {{ .mountPath }}
+                  {{- if .subPath }}
+                  subPath: {{ .subPath }}
+                  {{- end }}
+                {{- end }}
+            volumes:
+            {{- range .Values.worker.volumes }}
+              - name: {{ .name }}
+                persistentVolumeClaim:
+                  claimName: {{ .persistentVolumeClaim.claimName }}
+            {{- end }}
+              
+
+      
+
