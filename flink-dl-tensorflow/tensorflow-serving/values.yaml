@@ -1,0 +1,41 @@
+image:
+  repository: <registry_name>.registry.azurecr.io/tensorflow/serving
+  pullPolicy: Always
+  tag: <tag>
+
+aad:
+  identityName: "aks-identity-name"
+
+ports:
+  - name: grpc
+    containerPort: 8500
+  - name: rest
+    containerPort: 8501
+
+deployment:
+  command:
+    - /usr/bin/tensorflow_model_server
+  args:
+    - --port=8500
+    - --rest_api_port=8501
+    - --model_name=mnist
+    - --model_base_path=/mnt/tf/tensorflow/mnist
+  resources:
+    limits:
+      cpu: "4"
+      memory: 4Gi
+    requests:
+      cpu: "1"
+      memory: 1Gi
+  volumeMounts:
+    - mountPath: /mnt/tf
+      name: azureblob-fuse
+  volumes:
+    - name: azureblob-fuse
+      persistentVolumeClaim:
+        claimName: azureblob-fuse-pvc
+
+service:
+  type: ClusterIP
+
+

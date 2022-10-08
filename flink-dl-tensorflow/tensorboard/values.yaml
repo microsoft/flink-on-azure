@@ -1,0 +1,24 @@
+image:
+  repository: <registry_name>.registry.azurecr.io/tensorflow/tensorflow
+  pullPolicy: Always
+  tag: <tag>
+
+aad:
+  identityName: "aks-identity-name"
+
+deployment:
+  command:
+    - /usr/local/bin/tensorboard
+    - --logdir=/mnt/tf/tensorflow/logs
+    - --host=0.0.0.0
+  volumeMounts:
+    - mountPath: /mnt/tf
+      name: azureblob-fuse
+  volumes:
+    - name: azureblob-fuse
+      persistentVolumeClaim:
+        claimName: azureblob-fuse-pvc
+
+service:
+  type: ClusterIP
+  port: 6006
