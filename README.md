@@ -16,6 +16,7 @@ Outline the examples in the repository.
 | [Flink CDC SQL Server Examples](flink-cdc-sql-server-example) |  Examples for Flink CDC SQL Server Connector |  |
 | [Flink on Native Azure Kubernetes](flink-on-native-azure-kubernetes) |  Examples for Flink Job on Native Azure Kubernetes |  |
 | [Flink Azure Data Factory Cloud Native Extension](flink-adf-cloud-native-extension) |  Flink Azure Data Factory Cloud Native Extension |  |
+| [Flink Deep Learning Tensorflow](flink-dl-tensorflow) |  Flink Online & Offline Training, Tensorflow Integration |  |
 
 ## Prerequisites
 
